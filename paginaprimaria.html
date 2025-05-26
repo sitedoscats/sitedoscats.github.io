@@ -176,14 +176,7 @@
     document.querySelector('main').appendChild(userInfoDiv);
   }
 
-  // Renderiza a lista de todos os membros
-  const membersContainer = document.getElementById('members-list');
-  for (let name in users) {
-    const p = document.createElement('p');
-    p.className = 'member-item';
-    p.textContent = `${name} — senha: ${users[name].senha}`;
-    membersContainer.appendChild(p);
-  }
+  
 
   function logout() {
     localStorage.removeItem('user');
