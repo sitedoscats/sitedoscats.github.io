@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>CATS - Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg-color: #303435;
+      --accent: #b9d928;
+      --text-color: #eee6e6;
+      --hover: #a4ea33;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #1a1a1a;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav button {
+      background: none;
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      color: var(--text-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, border 0.3s;
+    }
+
+    nav button:hover {
+      background-color: var(--hover);
+      border-color: var(--hover);
+    }
+
+    .user {
+      font-size: 14px;
+      margin-left: 30px;
+      color: #999;
+    }
+
+    main {
+      padding: 60px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      color: var(--accent);
+    }
+
+    p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 20px auto;
+      color: #aaa;
+    }
+
+    .members {
+      margin-top: 60px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+    }
+
+    .members h3 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+
+    .member-item {
+      margin: 5px 0;
+      font-family: monospace;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">CATS</div>
+    <nav>
+      <button onclick="logout()">Sair</button>
+      <span class="user" id="user-display"></span>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Bem-vindo ao portal CATS</h1>
+    <p>Um espaço reservado para os membros dos CATS.</p>
+
+  </main>
+
+<script>
+  const users = {
+    "EXS": {
+      senha: "admin",
+      saldo: "infinito",
+      missao: "Observar movimento",
+      status: "Em campo"
+    },
+    "Davi": {
+      senha: "gatofino",
+      saldo: "0,00 CATS TOKENS",
+      missao: "Coadjuvante (admin do grupo)",
+      status: "Em campo"
+    },
+    "Manu": {
+      senha: "miau123",
+      saldo: "0,00 CATS TOKENS",
+      missao: "Coadjuvante (admin do grupo)",
+      status: "Em campo"
+    }
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const userFromQuery = urlParams.get('user');
+
+  if (userFromQuery) {
+    localStorage.setItem('user', userFromQuery);
+  }
+
+  const savedUser = localStorage.getItem('user');
+  const userData = users[savedUser];
+  const username = userData ? savedUser : "Agente Desconhecido";
+
+  // Atualiza o cabeçalho
+  document.getElementById('user-display').textContent = `Olá, ${username}`;
+
+  // Mostra dados específicos do usuário logado
+  if (userData) {
+    const userInfoDiv = document.createElement('div');
+    userInfoDiv.className = 'members';
+    userInfoDiv.innerHTML = `
+      <h3>Dados do Agente</h3>
+      <p><strong>Usuário:</strong> ${savedUser}</p>
+      <p><strong>Saldo Bancário:</strong> ${userData.saldo}</p>
+      <p><strong>Missão Atual:</strong> ${userData.missao}</p>
+      <p><strong>Status:</strong> ${userData.status}</p>
+    `;
+    document.querySelector('main').appendChild(userInfoDiv);
+  }
+
+  // Renderiza a lista de todos os membros
+  const membersContainer = document.getElementById('members-list');
+  for (let name in users) {
+    const p = document.createElement('p');
+    p.className = 'member-item';
+    p.textContent = `${name} — senha: ${users[name].senha}`;
+    membersContainer.appendChild(p);
+  }
+
+  function logout() {
+    localStorage.removeItem('user');
+    window.location.href = "index.html";
+  }
+</script>
+
+
+</body>
+</html>

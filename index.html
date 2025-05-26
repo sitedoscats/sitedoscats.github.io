@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - CATS</title>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #f0f0f0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+      width: 300px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #444;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .success {
+      color: #4caf50;
+    }
+
+    .error {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login CATS</h2>
+    <input type="text" id="username" placeholder="Usuário">
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const users = {
+      "EXS": "admin",
+      "Davi": "gatofino",
+      "Manu": "miau123"
+    };
+
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value;
+      const message = document.getElementById('message');
+
+      if (users[user] && users[user] === pass) {
+        message.innerHTML = `Bem-vindo, ${user}.`;
+        message.className = "message success";
+        window.location.href = "paginaprimaria.html?user=" + encodeURIComponent(user);
+
+      } else {
+        message.innerHTML = "Credenciais inválidas. Tente novamente.";
+        message.className = "message error";
+      }
+    }
+  </script>
+</body>
+</html>
