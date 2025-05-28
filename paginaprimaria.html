@@ -101,6 +101,19 @@
       font-family: monospace;
       color: #ddd;
     }
+   .meu-botao {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .meu-botao:hover {
+    background-color: #45a049; /* Verde mais escuro */
+  }
   </style>
 </head>
 <body>
@@ -109,6 +122,7 @@
     <div class="logo">CATS</div>
     <nav>
       <button onclick="logout()">Sair</button>
+      <button class="meu-botao" href="aiai.html">Acesse a Loja dos CATS!</button>
       <span class="user" id="user-display"></span>
     </nav>
   </header>
